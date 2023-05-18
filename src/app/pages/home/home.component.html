@@ -1,0 +1,92 @@
+<div class="container mx-auto px-4 py-4">
+  <h1 class="text-3xl font-bold">{{ title }}</h1>
+  <hr />
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="mt-5 w-full text-sm text-left text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Id</th>
+          <th scope="col" class="px-6 py-3">Tarea</th>
+          <th scope="col" class="px-6 py-3">Estado</th>
+          <th scope="col" class="px-6 py-3">Fecha Reg.</th>
+          <th scope="col" class="px-6 py-3">Fecha Ter.</th>
+          <th scope="col" class="px-6 py-3">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+          *ngFor="let t of listaTareas"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ t.id }}
+          </th>
+          <td class="px-6 py-4">{{ t.task }}</td>
+          <td class="px-6 py-4">
+            <fa-icon
+              [icon]="check"
+              [styles]="{ color: 'green' }"
+              size="xl"
+              *ngIf="t.done"
+            ></fa-icon>
+            <fa-icon
+              [icon]="xcross"
+              [styles]="{ color: 'red' }"
+              size="xl"
+              *ngIf="!t.done"
+            ></fa-icon>
+          </td>
+          <td class="px-6 py-4">{{ t.dateReg }}</td>
+          <td class="px-6 py-4">{{ t.dateDone }}</td>
+          <td class="px-6 py-4">
+            <a
+              (click)="eliminarTarea(t.id)"
+              class="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer mr-3"
+              ><fa-icon [icon]="trash" size="xl"></fa-icon
+            ></a>
+            <a
+              (click)="cambiarEstado(t.id)"
+              class="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer"
+              ><fa-icon
+                *ngIf="!t.done"
+                [icon]="scheck"
+                [styles]="{ color: 'green' }"
+                size="xl"
+              ></fa-icon>
+              <fa-icon
+                *ngIf="t.done"
+                [icon]="scross"
+                [styles]="{ color: 'red' }"
+                size="xl"
+              ></fa-icon>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <label>
+    Agregar Tarea:
+    <input
+      type="text"
+      id="txtTarea"
+      class="w-2/4 ml-3 border border-b rounded-md py-1 px-3"
+      value="Mensaje de Prueba"
+      [(ngModel)]="strTarea"
+    />
+  </label>
+  <button
+    class="ml-2 bg-gray-900 rounded-md px-4 py-1 text-white font-bold"
+    (click)="agregarTarea()"
+  >
+    Agregar
+  </button>
+</div>
